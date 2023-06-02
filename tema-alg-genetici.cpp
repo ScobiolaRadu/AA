@@ -32,7 +32,7 @@ int main()
     float chromosomes[pop + 1];
     for (int i = 1; i <= pop; i++)
     {
-        unsigned int seed = static_cast<unsigned int>(time(0)) + i;
+        unsigned int seed = static_cast<unsigned int>(time(0)) * i;
         srand(seed);
         chromosomes[i] = lim_inf + (lim_sup - lim_inf) * (rand() % 1000) / 1000.0;
     }
