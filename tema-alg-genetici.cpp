@@ -4,6 +4,7 @@
 #include <bitset>
 #include <vector>
 #include <limits>
+#include <algorithm>
 
 using namespace std;
 
@@ -69,6 +70,9 @@ int main()
 
     // d
     float selected[pop + 1];
+    float elite_chromosome = chromosomes[1];
+    float elite_fitness = func(chromosomes[1], a, b, c);
+
     for (int i = 1; i <= pop; i++)
     {
         float u = (float)rand() / RAND_MAX;
@@ -99,9 +103,18 @@ int main()
             selectedChromosome = left;
         }
 
+        if (func(chromosomes[selectedChromosome], a, b, c) > elite_fitness)
+        {
+            elite_chromosome = chromosomes[selectedChromosome];
+            elite_fitness = func(chromosomes[selectedChromosome], a, b, c);
+        }
+
         selected[i] = chromosomes[selectedChromosome];
         g << "u= " << u << "    selectam cromozomul " << selectedChromosome << endl;
     }
+
+    selected[1] = elite_chromosome;
+
     g << "Dupa selectie:\n";
     for (int i = 1; i <= pop; i++)
     {
