@@ -3,6 +3,7 @@
 #include <string>
 #include <bitset>
 #include <vector>
+#include <limits>
 
 using namespace std;
 
@@ -139,7 +140,7 @@ int main()
         std::bitset<32> bits1(*reinterpret_cast<unsigned *>(&selected[c1]));
         std::bitset<32> bits2(*reinterpret_cast<unsigned *>(&selected[c2]));
 
-        int punct = rand() % (sizeof(float) * 8);
+        int punct = rand() % std::numeric_limits<float>::digits;
 
         g << "Recombinare dintre cromozomul " << c1 << " cu cromozomul " << c2 << ":" << std::endl;
         g << bits1 << " " << bits2 << " punct " << punct << std::endl;
@@ -151,7 +152,7 @@ int main()
         }
         for (int j = punct; j < 32; j++)
         {
-            combined[j] = bits2[j - punct];
+            combined[j] = bits2[j];
         }
 
         std::bitset<32> combined2;
@@ -161,7 +162,7 @@ int main()
         }
         for (int j = punct; j < 32; j++)
         {
-            combined2[j] = bits1[j - punct];
+            combined2[j] = bits1[j];
         }
 
         g << "Rezultat    " << combined << " " << combined2 << std::endl;
